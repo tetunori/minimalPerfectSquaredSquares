@@ -18,7 +18,6 @@ function draw() {
 
   const mpss = new mPSS(sqSize);
   const squares = mpss.getSquares();
-  // const squares = mpss.getSmallestSizeSquares(0);
 
   squares.forEach((sq) => {
     square(sq.x, sq.y, sq.size);
@@ -26,7 +25,7 @@ function draw() {
   });
 }
 
-// Drwa square length text in the center of square
+// Draw square length text in the center of square
 const drawLengthText = (length, x, y) => {
   let offsetX = 0;
   let offsetY = 0;

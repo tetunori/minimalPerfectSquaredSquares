@@ -97,22 +97,23 @@ class mPSS {
         [1, 0],
       ], // X-Reflection
       [
+        [0, -1],
+        [-1, 0],
+        [-1, -1],
+        [1, 1],
+      ], // X-Reflection & PI/2 rotation
+      [
         [1, 0],
         [0, -1],
         [0, -1],
         [0, 1],
       ], // X-Reflection & PI rotation
+
       [
         [0, 1],
         [1, 0],
         [0, 0],
         [0, 0],
-      ], // X-Reflection & PI/2 rotation
-      [
-        [0, -1],
-        [-1, 0],
-        [-1, -1],
-        [1, 1],
       ], // X-Reflection & 3*PI/2 rotation
     ];
 

@@ -1,8 +1,8 @@
 # Description 📐
 
-**minimalPerfectSquaredSquares** is a dataset class consisting of some minimal [Perfect Squared Squares](https://en.wikipedia.org/wiki/Squaring_the_square#Perfect_squared_squares)(mPSS).  
+**minimalPerfectSquaredSquares**(mPSS) is a dataset class consisting of some minimal [Perfect Squared Squares](https://en.wikipedia.org/wiki/Squaring_the_square#Perfect_squared_squares).  
 You can draw mPSS without difficulty!  
-<img src="https://tetunori.github.io/minimalPerfectSquaredSquares/images/logo.png" alt="logo" width="640px">  
+<img src="https://tetunori.github.io/minimalPerfectSquaredSquares/images/keyvisual.png" alt="logo" width="640px">  
 
 Now, the latest version is `1.0.0`.  
 
@@ -16,12 +16,12 @@ Just new `mPSS()` and you can get data via `getSquares()` method.
 ```javascript
 // Create mpss instance
 const mpss = new mPSS();
-// const mpss = new mPSS(720); // can specify the size of square
+// const mpss = new mPSS(720); // can also specify the size of square
 
-// Get squares Array
+// Get Array of the squares 
 const squares = mpss.getSquares();
 ```
-Received array consists of the object as below.
+Received array consists of objects as below.
 ```javascript
 [
   { x: 0, y: 0, size: 50, etc... },
@@ -30,15 +30,17 @@ Received array consists of the object as below.
   ...
 ]
 ```
-So we can draw like below with p5.js.
+So we can draw like below.
 ```javascript
 // Draw each squares
 squares.forEach((sq) => {
   square(sq.x, sq.y, sq.size);
 });
 ```
-Sample01
-<img src="https://tetunori.github.io/jpCityPolygon/images/basic1.png" alt="basic1" width="360px">  
+<img src="https://tetunori.github.io/minimalPerfectSquaredSquares/images/sample01.png" alt="sample01" width="360px"> 
+
+ - [Sample01 On GitHub](https://tetunori.github.io/minimalPerfectSquaredSquares/sample/01/)
+ - [Sample01 On OpenProcessing](https://openprocessing.org/sketch/1316557)
 
 
 Each square has the following properties.
@@ -52,9 +54,10 @@ Each square has the following properties.
 |  originalSize  |  Number: side size of the square before transformed. If you do not specify the size in the Constructor, this is the same as `size` property.  |
 
 For using `centerX`, `centerY` and `originalSize`, See the sample 02 below.
-<img src="https://tetunori.github.io/jpCityPolygon/images/basic1.png" alt="basic1" width="360px">  
+<img src="https://tetunori.github.io/minimalPerfectSquaredSquares/images/sample02.png" alt="sample02" width="360px"> 
 
-Sample 02.🌟
+ - [Sample02 On GitHub](https://tetunori.github.io/minimalPerfectSquaredSquares/sample/02/)
+ - [Sample02 On OpenProcessing](https://openprocessing.org/sketch/1316557)
 
 ## Advanced Usage
 <details><summary>CLICK ME</summary>
@@ -77,23 +80,25 @@ Use like
 ```javascript
 const squares = mpss.getSquares( mPSS.tfTypeIdMirrorRotate180 );
 ```
-<img src="https://tetunori.github.io/jpCityPolygon/images/basic1.png" alt="basic1" width="360px">  
+<img src="https://tetunori.github.io/minimalPerfectSquaredSquares/images/sample03.png" alt="sample03" width="360px"> 
 
-Sample 03 🌟
+ - [Sample03 On GitHub](https://tetunori.github.io/minimalPerfectSquaredSquares/sample/03/)
+ - [Sample03 On OpenProcessing](https://openprocessing.org/sketch/1316557)
 
 ### Other 3 squares
 Although we have seen the minimal(in the number of the squares) PSS, `mPSS` supplies another 3 minimal(in the length of the squares) PSSs.  
 We can get the data via `getSmallestSizeSquares()` that has a similar usage to `getSquares()`.  
-Please specify the square index 0, 1 or 2 in the 1st argument.  
+Please specify the square index `0`, `1` or `2` in the 1st argument.  
 ```javascript
 const squares = mpss.getSmallestSizeSquares( 1 );
 
-// You can specify the transform direction
+// You can also specify the transform direction
 // const squares = mpss.getSmallestSizeSquares( 2, mPSS.tfTypeIdRotate90 );
 ```
-<img src="https://tetunori.github.io/jpCityPolygon/images/basic1.png" alt="basic1" width="360px">  
+<img src="https://tetunori.github.io/minimalPerfectSquaredSquares/images/sample04.png" alt="sample04" width="360px"> 
 
-Sample 04 🌟
+ - [Sample04 On GitHub](https://tetunori.github.io/minimalPerfectSquaredSquares/sample/04/)
+ - [Sample04 On OpenProcessing](https://openprocessing.org/sketch/1316557)
 </p>
 </details>
 
@@ -109,10 +114,24 @@ new mPSS([sideLength: Number])
 Parameters:
 |  name  |  note  |
 | ---- | ---- |
-|  [sideLength]   | Number: Size of the outline (biggest)square. Optional.  |
+|  [`sideLength`]   | `Number`: Size of the outline (biggest)square. Optional.  |
 
 Returns:
 mPSS instance.
+
+## Properties
+### Transform type ID
+```javascript
+// Number
+mPSS.tfTypeIdOriginal;
+mPSS.tfTypeIdRotate90;
+mPSS.tfTypeIdRotate180;
+mPSS.tfTypeIdRotate270;
+mPSS.tfTypeIdMirror;
+mPSS.tfTypeIdMirrorRotate90;
+mPSS.tfTypeIdMirrorRotate180;
+mPSS.tfTypeIdMirrorRotate270;
+```
 
 ## Methods
 ### getSquares
@@ -122,18 +141,18 @@ getSquares([transformTypeIndex: Number])
 Parameters:
 |  name  |  note  |
 | ---- | ---- |
-|  [transformTypeIndex]   | Number: Specify `mPSS.tfTypeId*`. Default value is `mPSS.tfTypeIdOriginal` Optional. |
+|  [`transformTypeIndex`]   | `Number`: Specify `mPSS.tfTypeId*`. Default value is `mPSS.tfTypeIdOriginal` Optional. |
 
 Returns:
 Array of the square data. Each data has properties below.
 |  name  |  note  |
 | ---- | ---- |
-|  x  |  Number: x-coordinate of the square.  |
-|  y  |  Number: y-coordinate of the square.  |
-|  size  |  Number: side size of the square.  |
-|  centerX  |  Number: x-coordinate of the center of the square.  |
-|  centerY  |  Number: y-coordinate of the center of the square.  |
-|  originalSize  |  Number: side size of the square before transformed. If you do not specify the size in the Constructor, this is the same as `size` property.  |
+|  `x`  |  `Number`: x-coordinate of the square.  |
+|  `y`  |  `Number`: y-coordinate of the square.  |
+|  `size`  |  `Number`: side size of the square.  |
+|  `centerX`  |  `Number`: x-coordinate of the center of the square.  |
+|  `centerY`  |  `Number`: y-coordinate of the center of the square.  |
+|  `originalSize`  |  `Number`: side size of the square before transformed. If you do not specify the size in the Constructor, this is the same as `size` property.  |
 
 ### getSmallestSizeSquares
 ```javascript
@@ -142,8 +161,8 @@ getSmallestSizeSquares([squareTypeIndex: Number], [transformTypeIndex: Number]) 
 Parameters:
 |  name  |  note  |
 | ---- | ---- |
-|  [squareTypeIndex]   | Number: Specify square type index 0, 1 or 2. Default value is 0. Optional. |
-|  [transformTypeIndex]   | Number: Specify `mPSS.tfTypeId*`. Default value is `mPSS.tfTypeIdOriginal` Optional. |
+|  [`squareTypeIndex`]   | `Number`: Specify square type index `0`, `1` or `2`. Default value is `0`. Optional. |
+|  [`transformTypeIndex`]   | `Number`: Specify `mPSS.tfTypeId*`. Default value is `mPSS.tfTypeIdOriginal` Optional. |
 
 Returns:
 Array of the square data. See `getSquares()` section.
