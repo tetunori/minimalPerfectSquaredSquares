@@ -53,7 +53,7 @@ Each square has the following properties.
 |  centerY  |  Number: y-coordinate of the center of the square.  |
 |  originalSize  |  Number: side size of the square before transformed. If you do not specify the size in the Constructor, this is the same as `size` property.  |
 
-For using `centerX`, `centerY` and `originalSize`, See the sample 02 below.
+For using `centerX`, `centerY` and `originalSize`, See the sample 02 below.  
 <img src="https://tetunori.github.io/minimalPerfectSquaredSquares/images/sample02.png" alt="sample02" width="360px"> 
 
  - [Sample02 On GitHub](https://tetunori.github.io/minimalPerfectSquaredSquares/sample/02/)
@@ -80,7 +80,7 @@ Use like
 ```javascript
 const squares = mpss.getSquares( mPSS.tfTypeIdMirrorRotate180 );
 ```
-<img src="https://tetunori.github.io/minimalPerfectSquaredSquares/images/sample03.png" alt="sample03" width="360px"> 
+<img src="https://tetunori.github.io/minimalPerfectSquaredSquares/images/sample03.png" alt="sample03" width="720px"> 
 
  - [Sample03 On GitHub](https://tetunori.github.io/minimalPerfectSquaredSquares/sample/03/)
  - [Sample03 On OpenProcessing](https://openprocessing.org/sketch/1316557)
@@ -95,7 +95,7 @@ const squares = mpss.getSmallestSizeSquares( 1 );
 // You can also specify the transform direction
 // const squares = mpss.getSmallestSizeSquares( 2, mPSS.tfTypeIdRotate90 );
 ```
-<img src="https://tetunori.github.io/minimalPerfectSquaredSquares/images/sample04.png" alt="sample04" width="360px"> 
+<img src="https://tetunori.github.io/minimalPerfectSquaredSquares/images/sample04.png" alt="sample04" width="640px"> 
 
  - [Sample04 On GitHub](https://tetunori.github.io/minimalPerfectSquaredSquares/sample/04/)
  - [Sample04 On OpenProcessing](https://openprocessing.org/sketch/1316557)

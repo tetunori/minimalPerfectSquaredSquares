@@ -1,12 +1,11 @@
-const sqSize = 600;
-const canvasSize = 720;
+const sqSize = 520;
 
 function setup() {
-  createCanvas(canvasSize, canvasSize);
+  createCanvas(1280, 640);
   strokeWeight(2);
-  textSize(24);
+  textSize(100);
   textFont('Noto Sans JP');
-  textAlign(CENTER, CENTER);
+  // textAlign(CENTER, CENTER);
   frameRate(0.5);
 }
 
@@ -33,8 +32,9 @@ function draw() {
   pattern(randPattern(width * 0.08));
 
   // Centering
-  const tlValue = (canvasSize - sqSize) / 2;
-  translate(tlValue, tlValue);
+  const tlValueX = (width - sqSize) / 2;
+  const tlValueY = (height - sqSize) / 2;
+  translate(tlValueX, tlValueY);
 
   const mpss = new mPSS(sqSize);
   const squares = mpss.getSquares();
@@ -50,6 +50,16 @@ function draw() {
   squares.forEach((sq) => {
     square(sq.x, sq.y, sq.size);
   });
+
+  noStroke();
+  fill('white');
+  const textX = 70;
+  const textYTop = 140;
+  const textYMargin = 100;
+  text('minimal',textX,textYTop + textYMargin * 0);
+  text('Perfect',textX,textYTop + textYMargin * 1);
+  text('Squared',textX,textYTop + textYMargin * 2);
+  text('Squares',textX,textYTop + textYMargin * 3);
 }
 
 // Take some Colors from coolors URL
