@@ -1,11 +1,23 @@
 class mPSS {
+  // Static members
+  // typeIDs
+  static typeIdStart = 0;
+  static typeIdOriginal = 0;
+  static typeIdRotate90 = 1;
+  static typeIdRotate180 = 2;
+  static typeIdRotate270 = 3;
+  static typeIdMirror = 4;
+  static typeIdMirrorRotate90 = 5;
+  static typeIdMirrorRotate180 = 6;
+  static typeIdMirrorRotate270 = 7;
+  static typeIdEnd = 7;
+
+  // Constructor
   constructor(sideLength = 112) {
     this.sideLength = sideLength;
-    this.dataNumSquares;
-    this.dataSideLength;
   }
 
-  getSquares() {
+  getSquares(typeIndex = mPSS.typeIdOriginal) {
     const baseSideLength = 112;
 
     // minimal data (in number of squares)
@@ -84,7 +96,11 @@ class mPSS {
       ], // X-Reflection & 3*PI/2 rotation
     ];
 
-    const index = 0;
+    // Clamp the typeID argument
+    const index = Math.max(mPSS.typeIdStart, Math.min(mPSS.typeIdEnd, typeIndex));
+    console.log(index);
+
+    // Transform(mirror and/or rotate)
     const transformedData = baseData.map((e) => {
       return {
         x:
@@ -101,15 +117,29 @@ class mPSS {
       };
     });
 
+    // Resize as specified length
     const ratio = this.sideLength / baseSideLength;
     const resizedData = transformedData.map((e) => {
       return {
         x: e.x * ratio,
         y: e.y * ratio,
         size: e.size * ratio,
+        originalSize: e.size,
       };
     });
 
-    return resizedData;
+    // Add center x, y properties
+    const finalData = resizedData.map((e) => {
+      return {
+        x: e.x,
+        y: e.y,
+        size: e.size,
+        originalSize: e.originalSize,
+        centerX: e.x + e.size / 2,
+        centerY: e.y + e.size / 2,
+      };
+    });
+
+    return finalData;
   }
 }
