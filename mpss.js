@@ -13,11 +13,160 @@ class mPSS {
   static tfTypeIdEnd = 7;
 
   // Constructor
-  constructor(sideLength = 112) {
+  constructor(sideLength = undefined) {
     this.sideLength = sideLength;
   }
 
-  // Data
+  // API: get squares consisting of minimal(number of squares) squared square
+  getSquares(transformTypeIndex = mPSS.tfTypeIdOriginal) {
+    const sqData = this.minSqData;
+    return this.getSquaresData(sqData, transformTypeIndex);
+  }
+
+  // API: get squares consisting of minimal(length of square) squared square
+  getSmallestSizeSquares(squareTypeIndex = 0, transformTypeIndex = mPSS.tfTypeIdOriginal) {
+    // Clamp index 0, 1 or 2
+    const sqTypeId = Math.max(0, Math.min(2, squareTypeIndex));
+    const sqData = this.minLenSqDataArray[sqTypeId];
+    return this.getSquaresData(sqData, transformTypeIndex);
+  }
+
+  // Get Squares Data
+  getSquaresData(baseData, transformTypeIndex) {
+    // Clamp the tfTypeId argument
+    const index = Math.max(mPSS.tfTypeIdStart, Math.min(mPSS.tfTypeIdEnd, transformTypeIndex));
+
+    // Transform(mirror and/or rotate)
+    const transformedData = {
+      baseSideLength: baseData.baseSideLength,
+      data: this.transformData(baseData, index),
+    };
+
+    // Resize as specified length
+    const resizedData = {
+      baseSideLength: transformedData.baseSideLength,
+      data: this.resizeData(
+        transformedData,
+        this.sideLength ? this.sideLength : transformedData.baseSideLength
+      ),
+    };
+
+    // Add center x, y properties
+    const finalData = this.addCenterXY(resizedData);
+    return finalData;
+  }
+
+  // Transform Data
+  transformData(sqData, transformTypeIndex) {
+    // Transform matrices
+    // [
+    //   [x0, y0], // rotation matrix
+    //   [x1, y1], // rotation matrix
+    //   [x2, y2], // translate on size
+    //   [x3, y3], // translate on baseSideLength
+    // ]
+    const matrices = [
+      [
+        [1, 0],
+        [0, 1],
+        [0, 0],
+        [0, 0],
+      ], // Original
+      [
+        [0, -1],
+        [1, 0],
+        [-1, 0],
+        [1, 0],
+      ], // PI/2 rotation
+      [
+        [-1, 0],
+        [0, -1],
+        [-1, -1],
+        [1, 1],
+      ], // PI rotation
+      [
+        [0, 1],
+        [-1, 0],
+        [0, -1],
+        [0, 1],
+      ], // 3*PI/2 rotation
+      [
+        [-1, 0],
+        [0, 1],
+        [-1, 0],
+        [1, 0],
+      ], // X-Reflection
+      [
+        [1, 0],
+        [0, -1],
+        [0, -1],
+        [0, 1],
+      ], // X-Reflection & PI rotation
+      [
+        [0, 1],
+        [1, 0],
+        [0, 0],
+        [0, 0],
+      ], // X-Reflection & PI/2 rotation
+      [
+        [0, -1],
+        [-1, 0],
+        [-1, -1],
+        [1, 1],
+      ], // X-Reflection & 3*PI/2 rotation
+    ];
+
+    const index = transformTypeIndex;
+    const baseSideLength = sqData.baseSideLength;
+    const data = sqData.data;
+
+    return data.map((e) => {
+      return {
+        x:
+          e.x * matrices[index][0][0] +
+          e.y * matrices[index][0][1] +
+          e.size * matrices[index][2][0] +
+          baseSideLength * matrices[index][3][0],
+        y:
+          e.x * matrices[index][1][0] +
+          e.y * matrices[index][1][1] +
+          e.size * matrices[index][2][1] +
+          baseSideLength * matrices[index][3][1],
+        size: e.size,
+      };
+    });
+  }
+
+  // Resize Data
+  resizeData(sqData, targetSideLength) {
+    const baseSideLength = sqData.baseSideLength;
+    const ratio = targetSideLength / baseSideLength;
+
+    return sqData.data.map((e) => {
+      return {
+        x: e.x * ratio,
+        y: e.y * ratio,
+        size: e.size * ratio,
+        originalSize: e.size,
+      };
+    });
+  }
+
+  // Add center (x, y) position to Data
+  addCenterXY(sqData) {
+    return sqData.data.map((e) => {
+      return {
+        x: e.x,
+        y: e.y,
+        size: e.size,
+        originalSize: e.originalSize,
+        centerX: e.x + e.size / 2,
+        centerY: e.y + e.size / 2,
+      };
+    });
+  }
+
+  // Base Data ---------------
   // Minimal squares data (in number of squares)
   // Found in 1978, by A. J. W. Duijvestijn
   minSqData = {
@@ -135,138 +284,4 @@ class mPSS {
       ],
     },
   ];
-
-  getSquares(transformTypeIndex = mPSS.tfTypeIdOriginal) {
-    const sqData = this.minSqData;
-
-    return this.getSquaresData(sqData, transformTypeIndex);
-  }
-
-  getSmallestSizeSquares(squareTypeIndex = 0, transformTypeIndex = mPSS.tfTypeIdOriginal) {
-    const sqTypeId = Math.max(0, Math.min(2, squareTypeIndex));
-    const sqData = this.minLenSqDataArray[sqTypeId];
-
-    return this.getSquaresData(sqData, transformTypeIndex);
-  }
-
-  addCenterXY(sqData) {
-    return sqData.data.map((e) => {
-      return {
-        x: e.x,
-        y: e.y,
-        size: e.size,
-        originalSize: e.originalSize,
-        centerX: e.x + e.size / 2,
-        centerY: e.y + e.size / 2,
-      };
-    });
-  }
-
-  resizeData(sqData, targetSideLength) {
-    const baseSideLength = sqData.baseSideLength;
-    const ratio = targetSideLength / baseSideLength;
-
-    return sqData.data.map((e) => {
-      return {
-        x: e.x * ratio,
-        y: e.y * ratio,
-        size: e.size * ratio,
-        originalSize: e.size,
-      };
-    });
-  }
-
-  transformData(sqData, transformTypeIndex) {
-    const index = transformTypeIndex;
-    const baseSideLength = sqData.baseSideLength;
-    const data = sqData.data;
-
-    const matrices = [
-      [
-        [1, 0],
-        [0, 1],
-        [0, 0],
-        [0, 0],
-      ], // Original
-      [
-        [0, -1],
-        [1, 0],
-        [-1, 0],
-        [1, 0],
-      ], // PI/2 rotation
-      [
-        [-1, 0],
-        [0, -1],
-        [-1, -1],
-        [1, 1],
-      ], // PI rotation
-      [
-        [0, 1],
-        [-1, 0],
-        [0, -1],
-        [0, 1],
-      ], // 3*PI/2 rotation
-      [
-        [-1, 0],
-        [0, 1],
-        [-1, 0],
-        [1, 0],
-      ], // X-Reflection
-      [
-        [1, 0],
-        [0, -1],
-        [0, -1],
-        [0, 1],
-      ], // X-Reflection & PI rotation
-      [
-        [0, 1],
-        [1, 0],
-        [0, 0],
-        [0, 0],
-      ], // X-Reflection & PI/2 rotation
-      [
-        [0, -1],
-        [-1, 0],
-        [-1, -1],
-        [1, 1],
-      ], // X-Reflection & 3*PI/2 rotation
-    ];
-
-    return data.map((e) => {
-      return {
-        x:
-          e.x * matrices[index][0][0] +
-          e.y * matrices[index][0][1] +
-          e.size * matrices[index][2][0] +
-          baseSideLength * matrices[index][3][0],
-        y:
-          e.x * matrices[index][1][0] +
-          e.y * matrices[index][1][1] +
-          e.size * matrices[index][2][1] +
-          baseSideLength * matrices[index][3][1],
-        size: e.size,
-      };
-    });
-  }
-
-  getSquaresData(baseData, transformTypeIndex) {
-    // Clamp the tfTypeId argument
-    const index = Math.max(mPSS.tfTypeIdStart, Math.min(mPSS.tfTypeIdEnd, transformTypeIndex));
-
-    // Transform(mirror and/or rotate)
-    const transformedData = {
-      baseSideLength: baseData.baseSideLength,
-      data: this.transformData(baseData, index),
-    };
-
-    // Resize as specified length
-    const resizedData = {
-      baseSideLength: transformedData.baseSideLength,
-      data: this.resizeData(transformedData, this.sideLength),
-    };
-
-    // Add center x, y properties
-    const finalData = this.addCenterXY(resizedData);
-    return finalData;
-  }
 }

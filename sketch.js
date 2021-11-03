@@ -1,5 +1,6 @@
-const size = 600;
+const sqSize = 600;
 const canvasSize = 720;
+
 function setup() {
   createCanvas(canvasSize, canvasSize);
   strokeWeight(2);
@@ -11,12 +12,12 @@ function draw() {
   background(220);
 
   // Centering
-  const tlValue = (canvasSize - size) / 2;
+  const tlValue = (canvasSize - sqSize) / 2;
   translate(tlValue, tlValue);
 
-  const mpss = new mPSS(size);
-  // const squares = mpss.getSquares();
-  const squares = mpss.getSmallestSizeSquares(2);
+  const mpss = new mPSS(sqSize);
+  const squares = mpss.getSquares();
+  // const squares = mpss.getSmallestSizeSquares(0);
 
   squares.forEach((sq) => {
     square(sq.x, sq.y, sq.size);
