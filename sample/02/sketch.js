@@ -5,11 +5,12 @@ function setup() {
   createCanvas(canvasSize, canvasSize);
   strokeWeight(2);
   textSize(24);
+  textFont('Noto Sans JP');
   textAlign(CENTER, CENTER);
 }
 
 function draw() {
-  background(220);
+  background('#f0f0f0');
 
   // Centering
   const tlValue = (canvasSize - sqSize) / 2;
