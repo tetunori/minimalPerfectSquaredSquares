@@ -15,7 +15,9 @@ function draw() {
   translate(tlValue, tlValue);
 
   const mpss = new mPSS(size);
-  const squares = mpss.getSquares();
+  // const squares = mpss.getSquares();
+  const squares = mpss.getSmallestSizeSquares(2);
+
   squares.forEach((sq) => {
     square(sq.x, sq.y, sq.size);
     drawLengthText(sq.originalSize, sq.centerX, sq.centerY);
