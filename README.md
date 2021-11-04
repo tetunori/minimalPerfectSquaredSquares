@@ -40,8 +40,7 @@ squares.forEach((sq) => {
 <img src="https://tetunori.github.io/minimalPerfectSquaredSquares/images/sample01.png" alt="sample01" width="360px"> 
 
  - [Sample01 On GitHub](https://tetunori.github.io/minimalPerfectSquaredSquares/sample/01/)
- - [Sample01 On OpenProcessing](https://openprocessing.org/sketch/1316557)
-
+ - [Sample01 On OpenProcessing](https://openprocessing.org/sketch/1338726)
 
 Each square has the following properties.
 |  name  |  note  |
@@ -57,7 +56,7 @@ For using `centerX`, `centerY` and `originalSize`, See the sample 02 below.
 <img src="https://tetunori.github.io/minimalPerfectSquaredSquares/images/sample02.png" alt="sample02" width="360px"> 
 
  - [Sample02 On GitHub](https://tetunori.github.io/minimalPerfectSquaredSquares/sample/02/)
- - [Sample02 On OpenProcessing](https://openprocessing.org/sketch/1316557)
+ - [Sample02 On OpenProcessing](https://openprocessing.org/sketch/1338727)
 
 ## Advanced Usage
 <details><summary>CLICK ME</summary>
@@ -83,7 +82,7 @@ const squares = mpss.getSquares( mPSS.tfTypeIdMirrorRotate180 );
 <img src="https://tetunori.github.io/minimalPerfectSquaredSquares/images/sample03.png" alt="sample03" width="720px"> 
 
  - [Sample03 On GitHub](https://tetunori.github.io/minimalPerfectSquaredSquares/sample/03/)
- - [Sample03 On OpenProcessing](https://openprocessing.org/sketch/1316557)
+ - [Sample03 On OpenProcessing](https://openprocessing.org/sketch/1338728)
 
 ### Other 3 squares
 Although we have seen the minimal(in the number of the squares) PSS, `mPSS` supplies another 3 minimal(in the length of the squares) PSSs.  
@@ -95,10 +94,10 @@ const squares = mpss.getSmallestSizeSquares( 1 );
 // You can also specify the transform direction
 // const squares = mpss.getSmallestSizeSquares( 2, mPSS.tfTypeIdRotate90 );
 ```
-<img src="https://tetunori.github.io/minimalPerfectSquaredSquares/images/sample04.png" alt="sample04" width="640px"> 
+<img src="https://tetunori.github.io/minimalPerfectSquaredSquares/images/sample04.png" alt="sample04" width="720px"> 
 
  - [Sample04 On GitHub](https://tetunori.github.io/minimalPerfectSquaredSquares/sample/04/)
- - [Sample04 On OpenProcessing](https://openprocessing.org/sketch/1316557)
+ - [Sample04 On OpenProcessing](https://openprocessing.org/sketch/1338729)
 </p>
 </details>
 
@@ -169,6 +168,10 @@ Array of the square data. See `getSquares()` section.
 
 </p>
 </details>
+
+# Appendix: logo creation
+ - [Sample05 On GitHub](https://tetunori.github.io/minimalPerfectSquaredSquares/sample/05/)
+ - [Sample05 On OpenProcessing](https://openprocessing.org/sketch/1338731)
 
 # LICENSE
 MIT License.
