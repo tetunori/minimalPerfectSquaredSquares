@@ -170,7 +170,7 @@ Array of the square data. See `getSquares()` section.
 </details>
 
 # Appendix: logo creation
- - [Sample05 On GitHub](https://tetunori.github.io/minimalPerfectSquaredSquares/sample/05/)
+ - [Sample05 On GitHub](https://tetunori.github.io/minimalPerfectSquaredSquares/sample/05-logo-creation/)
  - [Sample05 On OpenProcessing](https://openprocessing.org/sketch/1338731)
 
 # LICENSE
