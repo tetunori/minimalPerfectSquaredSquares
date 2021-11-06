@@ -6,6 +6,8 @@ You can draw mPSS without difficulty!
 
 Now, the latest version is `1.0.0`.  
 
+> :warning: **If you are using iOS**: Please update iOS to the latest version! This tool uses JavaScript `class` but my iOS 14.4 device does not work with it. I confirmed iOS 14.8 works well.  
+
 # Usage
 ## Import Data
 ```html 
